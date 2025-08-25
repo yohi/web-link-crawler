@@ -3,16 +3,18 @@
 - [ ] 1. Set up project structure and core data models
   - Initialize Python 3.13 project with uv using `uv init`
   - Create pyproject.toml with project metadata and dependencies
-  - Define data classes for CrawlResult, UrlInfo, FailedUrl, and CrawlerConfig
+  - Define data classes for CrawlResult, UrlInfo, FailedUrl, and CrawlerConfig with base_url and base_path fields
   - Create directory structure and __init__.py files for the web crawler package
   - _Requirements: 1.1, 4.3_
 
 - [ ] 2. Implement URL management and validation components
-  - [ ] 2.1 Create DomainValidator class with domain checking logic
+  - [ ] 2.1 Create DomainValidator class with domain and path scope checking logic
     - Implement is_same_domain method to check if URLs belong to same domain
     - Add extract_domain method to parse domain from URLs
-    - Write unit tests for domain validation logic
-    - _Requirements: 2.1, 2.2, 2.3_
+    - Implement is_within_path_scope method to validate URL path hierarchy
+    - Add path normalization and comparison logic for path scope validation
+    - Write unit tests for domain validation and path scope logic
+    - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
 
   - [ ] 2.2 Implement URLManager class for queue and visited URL tracking
     - Create URL queue management with depth tracking
@@ -91,8 +93,9 @@
   - [ ] 9.1 Create integration tests with mock HTTP responses
     - Set up mock web server for testing crawling behavior
     - Test complete crawl workflow with various HTML structures
-    - Validate depth limiting and domain boundary enforcement
-    - _Requirements: 1.4, 2.4, 3.4_
+    - Validate depth limiting, domain boundary enforcement, and path scope restrictions
+    - Test path hierarchy validation with various URL structures
+    - _Requirements: 1.4, 2.4, 2.5, 2.6, 3.4_
 
   - [ ] 9.2 Add performance and edge case testing
     - Test memory usage with large URL sets

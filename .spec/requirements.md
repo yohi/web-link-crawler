@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A web crawler script that takes a website URL as input and recursively explores links within that site to output a comprehensive list. The system efficiently crawls pages within the specified domain and outputs all discovered links in a structured format.
+This document defines the requirements for a web crawler script that takes a website URL as input and recursively explores links within that site to output a comprehensive list. The system efficiently crawls pages within the specified domain and outputs all discovered links in a structured format. The crawler will be implemented as a Python command-line tool that respects domain boundaries, handles errors gracefully, and provides configurable output formats.
 
 ## Requirements
 
@@ -19,14 +19,16 @@ A web crawler script that takes a website URL as input and recursively explores 
 
 ### Requirement 2
 
-**User Story:** As a user, I want the crawler to respect the same domain boundary, so that it doesn't crawl external websites unnecessarily.
+**User Story:** As a user, I want the crawler to only crawl URLs that are within or deeper than the specified starting URL path, so that it doesn't crawl parent paths or sibling paths unnecessarily.
 
 #### Acceptance Criteria
 
 1. WHEN analyzing a discovered link THEN the system SHALL check if it belongs to the same domain as the starting URL
-2. WHEN a link is external THEN the system SHALL record it but not crawl it further
-3. WHEN a link is internal THEN the system SHALL add it to the crawling queue
-4. WHEN determining domain boundaries THEN the system SHALL handle subdomains appropriately
+2. WHEN a link is from an external domain THEN the system SHALL record it but not crawl it further
+3. WHEN a link is from the same domain but at a parent path level THEN the system SHALL record it but not crawl it further
+4. WHEN a link is from the same domain but at a sibling path level THEN the system SHALL record it but not crawl it further
+5. WHEN a link is within or deeper than the starting URL path THEN the system SHALL add it to the crawling queue
+6. WHEN determining path boundaries THEN the system SHALL accurately parse URL path hierarchies
 
 ### Requirement 3
 
@@ -71,3 +73,4 @@ A web crawler script that takes a website URL as input and recursively explores 
 2. WHEN setting max depth THEN the system SHALL respect the specified crawling depth limit
 3. WHEN setting delay THEN the system SHALL wait the specified time between requests
 4. WHEN setting output format THEN the system SHALL support different output formats (text, JSON, CSV)
+5. WHEN providing help information THEN the system SHALL display usage instructions and available options

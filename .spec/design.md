@@ -78,17 +78,20 @@ WebLinkCrawler
 - Filter out non-HTTP(S) schemes (mailto:, javascript:, etc.)
 
 ### 5. DomainValidator
-**Purpose:** Validates whether URLs belong to the same domain as the starting URL.
+**Purpose:** Validates whether URLs belong to the same domain and are within the allowed path scope of the starting URL.
 
 **Key Methods:**
 - `is_same_domain(url: str, base_domain: str) -> bool`
 - `extract_domain(url: str) -> str`
+- `is_within_path_scope(url: str, base_path: str) -> bool`
 - `should_crawl(url: str) -> bool`
 
 **Features:**
 - Subdomain handling configuration
 - Protocol normalization
 - Port number handling
+- Path hierarchy validation (only crawl URLs within or deeper than starting URL path)
+- Path normalization and comparison
 
 ### 6. OutputFormatter
 **Purpose:** Formats and displays crawling results in various formats.
@@ -163,6 +166,8 @@ class CrawlerConfig:
     max_urls: int = 1000
     verbose: bool = False
     user_agent: str = "WebLinkCrawler/1.0"
+    base_url: str = ""  # Starting URL for path scope validation
+    base_path: str = ""  # Extracted path from starting URL
 ```
 
 ## Error Handling
